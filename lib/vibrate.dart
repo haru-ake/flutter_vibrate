@@ -9,7 +9,11 @@ class Vibrate {
   //Vibrate for 500ms on Android, and for the default time on iOS (about 500ms as well)
   static Future vibrate() => _channel.invokeMethod('vibrate', {"duration" : _DEFAULT_VIBRATION_DURATION.inMilliseconds});
   //Whether the device can actually vibrate or not
-  static Future<bool> get canVibrate => _channel.invokeMethod('canVibrate');
+  static Future<bool> get canVibrate async {
+    final bool _canVibrate = await _channel.invokeMethod('canVibrate');
+    return _canVibrate;
+  }
+
   /**
   Vibrates with [pauses] in between each vibration
   Will always vibrate once before the first pause
